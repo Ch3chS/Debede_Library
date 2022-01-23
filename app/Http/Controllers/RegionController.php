@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User_Book;
+use App\Models\Region;
 use Illuminate\Support\Facades\Validator;
 
-class User_BookController extends Controller
+class RegionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,13 @@ class User_BookController extends Controller
      */
     public function index()
     {
-        $user_books = User_Book::all();
-        if($user_books->isEmpty()){
+        $region = Region::all();
+        if($region->isEmpty()){
             return response()->json([
-                'respuesta' => 'No se encuentran relaciones libro-usuario',
+                'respuesta' => 'No se encuentran regiones',
             ]);
         }
-        return response($user_books, 200);
+        return response($region, 200);
     }
 
     /**
@@ -45,28 +45,28 @@ class User_BookController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'id_user' => 'required|exists:users,id',
-                'id_book' => 'required|exists:books,id',
+                'name' => 'required|max:40'
+                'id_country' => 'required|exists:countries,id',
             ],
             [
-                'id_user.required' => 'Debe ingresar un usuario',
-                'id_user.exists' => 'El usuario ingresado no existe',
-                'id_book.required' => 'Debe ingresar un libro',
-                'id_book.exists' => 'El libro ingresado no una existe',
+                'name.required' => 'Debes ingresar el nombre de la region',
+                'name.max' => 'El nombre de la region no debe exeder los 40 caracteres',
+                'id_country.required' => 'Debe ingresar un pais',
+                'id_country.exists' => 'El pais ingresado no existe',
             ]
         );
         if($validator->fails()){
             return response($validator->errors(), 400);
         }
 
-        $newUser_Book = new User_Book();
-        $newUser_Book->id_user = $request->id_user;
-        $newUser_Book->id_book = $request->id_book;
-        $newUser_Book->save();
+        $newRegion = new Region();
+        $newRegion->name = $request->name;
+        $newRegion->id_country = $request->id_country;
+        $newRegion->save();
         
         return response() -> json([
-            'respuesta' => 'Se ha agregado una relacion libro-usuario',
-            'id' => $newUser_Book->id,
+            'respuesta' => 'Se ha agregado una region',
+            'id' => $newRegion->id,
         ], 201);
     }
 
@@ -78,13 +78,13 @@ class User_BookController extends Controller
      */
     public function show($id)
     {
-        $user_book = User_Book::find($id);
-        if(empty($user_book)){
+        $region = Region::find($id);
+        if(empty($region)){
             return response()->json([
-                'respuesta' => 'la relacion libro-usuario no se encuentra'
+                'respuesta' => 'no se encuentra la region'
             ]);
         }
-        return response($user_book, 200);;
+        return response($region, 200);;
     }
 
     /**
@@ -110,36 +110,35 @@ class User_BookController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'id_user' => 'required|exists:users,id',
-                'id_book' => 'required|exists:books,id',
+                'name' => 'required|max:40'
+                'id_country' => 'required|exists:countries,id',
             ],
             [
-                'id_user.required' => 'Debe ingresar un usuario',
-                'id_user.exists' => 'El usuario ingresado no existe',
-                'id_book.required' => 'Debe ingresar un libro',
-                'id_book.exists' => 'El libro ingresado no una existe',
+                'name.required' => 'Debes ingresar el nombre de la region',
+                'name.max' => 'El nombre de la region no debe exeder los 40 caracteres',
+                'id_country.required' => 'Debe ingresar un pais',
+                'id_country.exists' => 'El pais ingresado no existe',
             ]
         );
         if($validator->fails()){
             return response($validator->errors(), 400);
         }
 
-        
-        $user_book = User_Book::find($id);
+        $region = Region::find($id);
 
-        if(empty($user_book)){
+        if(empty($region)){
             return response()->json([
-                'respuesta' => 'La relacion usuario-libro no se encuentra'
+                'respuesta' => 'La region no se encuentra'
             ]);
         }
 
-        $user_book->id_user = $request->id_user;
-        $user_book->id_book = $request->id_book;
-        $user_book->save();
+        $region->name = $request->name;
+        $region->id_country = $request->id_country;
+        $region->save();
         
         return response() -> json([
-            'respuesta' => 'Se ha actualizado la relacion usuario-libro',
-            'id' => $user_book->id,
+            'respuesta' => 'Se ha actualizado la region',
+            'id' => $region->id,
         ], 201);
     }
 
@@ -151,19 +150,19 @@ class User_BookController extends Controller
      */
     public function destroy($id)
     {
-        $user_book = User_Book::find($id);
+        $region = Region::find($id);
 
-        if(empty($user_book)){
+        if(empty($region)){
             return response()->json([
-                'respuesta' => 'La relacion usuario-libro no se encuentra'
+                'respuesta' => 'La region no se encuentra'
             ]);
         }
 
-        $user_book->delete();
+        $region->delete();
 
         return response() -> json([
-            'respuesta' => 'Se ha desactivado la relacion usuario-libro',
-            'id' => $user_book->id,
+            'respuesta' => 'Se ha desactivado la region',
+            'id' => $region->id,
         ], 200);
     }
 }

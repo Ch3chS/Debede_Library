@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User_Book;
+use App\Models\Clasification;
 use Illuminate\Support\Facades\Validator;
 
-class User_BookController extends Controller
+class ClasificationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,13 @@ class User_BookController extends Controller
      */
     public function index()
     {
-        $user_books = User_Book::all();
-        if($user_books->isEmpty()){
+        $clasification = Clasification::all();
+        if($clasification->isEmpty()){
             return response()->json([
-                'respuesta' => 'No se encuentran relaciones libro-usuario',
+                'respuesta' => 'No se encuentran clasificaciones',
             ]);
         }
-        return response($user_books, 200);
+        return response($clasification, 200);
     }
 
     /**
@@ -45,28 +45,28 @@ class User_BookController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'id_user' => 'required|exists:users,id',
-                'id_book' => 'required|exists:books,id',
+                'name' => 'required|max:40'
+                'age' => 'required|numeric',
             ],
             [
-                'id_user.required' => 'Debe ingresar un usuario',
-                'id_user.exists' => 'El usuario ingresado no existe',
-                'id_book.required' => 'Debe ingresar un libro',
-                'id_book.exists' => 'El libro ingresado no una existe',
+                'name.required' => 'Debes ingresar el nombre de la clasificacion',
+                'name.max' => 'El nombre de la clasificacion no debe exeder los 40 caracteres',
+                'age.required' => 'Debe ingresar la edad minima',
+                'age.numeric' => 'La edad minima debe ser de tipo numerico',
             ]
         );
         if($validator->fails()){
             return response($validator->errors(), 400);
         }
 
-        $newUser_Book = new User_Book();
-        $newUser_Book->id_user = $request->id_user;
-        $newUser_Book->id_book = $request->id_book;
-        $newUser_Book->save();
+        $newClasification = new Clasification();
+        $newClasification->name = $request->name;
+        $newClasification->age = $request->age;
+        $newClasification->save();
         
         return response() -> json([
-            'respuesta' => 'Se ha agregado una relacion libro-usuario',
-            'id' => $newUser_Book->id,
+            'respuesta' => 'Se ha agregado una clasificacion',
+            'id' => $newClasification->id,
         ], 201);
     }
 
@@ -78,14 +78,15 @@ class User_BookController extends Controller
      */
     public function show($id)
     {
-        $user_book = User_Book::find($id);
-        if(empty($user_book)){
+        $clasification = Clasification::find($id);
+        if(empty($clasification)){
             return response()->json([
-                'respuesta' => 'la relacion libro-usuario no se encuentra'
+                'respuesta' => 'no se encuentra la clasificacion'
             ]);
         }
-        return response($user_book, 200);;
+        return response($clasification, 200);;
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -110,36 +111,35 @@ class User_BookController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'id_user' => 'required|exists:users,id',
-                'id_book' => 'required|exists:books,id',
+                'name' => 'required|max:40'
+                'age' => 'required|numeric',
             ],
             [
-                'id_user.required' => 'Debe ingresar un usuario',
-                'id_user.exists' => 'El usuario ingresado no existe',
-                'id_book.required' => 'Debe ingresar un libro',
-                'id_book.exists' => 'El libro ingresado no una existe',
+                'name.required' => 'Debes ingresar el nombre de la clasificacion',
+                'name.max' => 'El nombre de la clasificacion no debe exeder los 40 caracteres',
+                'age.required' => 'Debe ingresar la edad minima',
+                'age.numeric' => 'La edad minima debe ser de tipo numerico',
             ]
         );
         if($validator->fails()){
             return response($validator->errors(), 400);
         }
 
-        
-        $user_book = User_Book::find($id);
+        $clasification = Clasification::find($id);
 
-        if(empty($user_book)){
+        if(empty($region)){
             return response()->json([
-                'respuesta' => 'La relacion usuario-libro no se encuentra'
+                'respuesta' => 'La clasificacion no se encuentra'
             ]);
         }
 
-        $user_book->id_user = $request->id_user;
-        $user_book->id_book = $request->id_book;
-        $user_book->save();
+        $clasification->name = $request->name;
+        $clasification->age = $request->age;
+        $clasification->save();
         
         return response() -> json([
-            'respuesta' => 'Se ha actualizado la relacion usuario-libro',
-            'id' => $user_book->id,
+            'respuesta' => 'Se ha actualizado la clasificacion',
+            'id' => $region->id,
         ], 201);
     }
 
@@ -151,19 +151,19 @@ class User_BookController extends Controller
      */
     public function destroy($id)
     {
-        $user_book = User_Book::find($id);
+        $clasification = Clsification::find($id);
 
-        if(empty($user_book)){
+        if(empty($clasification)){
             return response()->json([
-                'respuesta' => 'La relacion usuario-libro no se encuentra'
+                'respuesta' => 'La clasificacion no se encuentra'
             ]);
         }
 
-        $user_book->delete();
+        $clasification->delete();
 
         return response() -> json([
-            'respuesta' => 'Se ha desactivado la relacion usuario-libro',
-            'id' => $user_book->id,
+            'respuesta' => 'Se ha desactivado la clasificacion',
+            'id' => $clasification->id,
         ], 200);
     }
 }

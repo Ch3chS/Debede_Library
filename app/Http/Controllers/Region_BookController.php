@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;¡
 use App\Models\Region_Book;
+use Illuminate\Support\Facades\Validator;
 
 class Region_BookController extends Controller
 {

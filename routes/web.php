@@ -59,3 +59,17 @@ Route::get('/category_book/{id}', 'Category_BookController@show');
 Route::post('/category_book/create', 'Category_BookController@store');
 Route::put('/category_book/update/{id}', 'Category_BookController@update');
 Route::delete('/category_book/delete/{id}','Category_BookController@destroy');
+
+/*         Region Controller              */ 
+Route::get('/regions', 'RegionController@index');
+Route::get('/region/{id}', 'RegionController@show');
+Route::post('/region/create', 'RegionController@store');
+Route::put('/region/update/{id}', 'RegionController@update');
+Route::delete('/region/delete/{id}','RegionController@destroy');
+
+/*         Clasification Controller              */ 
+Route::get('/clasifications', 'ClasificationController@index');
+Route::get('/clasification/{id}', 'ClasificationController@show');
+Route::post('/clasification/create', 'ClasificationController@store');
+Route::put('/clasification/update/{id}', 'ClasificationController@update');
+Route::delete('/clasification/delete/{id}','ClasificationController@destroy');
