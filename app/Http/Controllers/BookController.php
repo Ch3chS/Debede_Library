@@ -70,10 +70,14 @@ class BookController extends Controller
         $newBook->autor = $request->autor;
         $newBook->save();
         
+        /*
         return response() -> json([
             'respuesta' => 'Se ha agregado un nuevo libro',
             'id' => $newBook->id,
         ], 201);
+        */
+
+        return redirect('/store');
     }
 
     /**

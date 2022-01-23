@@ -25,8 +25,9 @@ Route::get('/register', function () {
     return view('register');
 })->middleware('guest');
 
-
-
+Route::get('/newbook', function () {
+    return view('newbook');
+})->middleware('auth');
 
 
 /*         User Controller              */ 
@@ -40,7 +41,7 @@ Route::get('/register', 'UserController@vistaCrearUsuario');
 Route::post('/logout', 'UserController@logout');
 
 /*         Book Controller              */ 
-Route::get('/store', 'BookController@index');
+Route::get('/store', 'BookController@index')->middleware('auth');
 Route::get('/book/{id}', 'BookController@show');
 Route::post('/book/create', 'BookController@store');
 Route::put('/book/update/{id}', 'BookController@update');
