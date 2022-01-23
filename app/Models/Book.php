@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
+
+    public function user_book(){
+        return $this->hasMany('App\Models\User_Book');
+    }
+
+    public function category_book(){
+        return $this->hasMany('App\Models\Category_Book');
+    }
+
+    public function region_book(){
+        return $this->hasMany('App\Models\Region_Book');
+    }
 }
