@@ -24,7 +24,8 @@
                         <div class="card-body p-5 text-center">
 
                             <div class="mb-md-5 mt-md-4 pb-5">
-                                <h2 class="fw-bold mb-2 text-uppercase">Debede Games</h2>
+                                <h2 class="fw-bold mb-2 text-uppercase">Freeblary</h2>
+                                <p class="">The Free Library</p>
                                 <p class="text-white-50 mb-5">Porfavor ingresa tu correo y contraseña</p>
                                 <form action="{{action('UserController@login')}}" method='POST'>
                                     @csrf

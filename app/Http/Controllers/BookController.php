@@ -21,7 +21,7 @@ class BookController extends Controller
                 'respuesta' => 'No se encuentran libros',
             ]);
         }
-        return response($books, 200);
+        return view('store',compact('books'));
     }
 
     /**

@@ -21,6 +21,11 @@ Route::get('/', function () {
     return view('login');
 })->middleware('guest');
 
+Route::get('/register', function () {
+    return view('register');
+})->middleware('guest');
+
+
 
 
 
@@ -31,9 +36,11 @@ Route::post('/user/create', 'UserController@store');
 Route::put('/user/update/{id}', 'UserController@update');
 Route::delete('/user/delete/{id}','UserController@destroy');
 Route::post('login', 'UserController@login');
+Route::get('/register', 'UserController@vistaCrearUsuario');
+Route::post('/logout', 'UserController@logout');
 
 /*         Book Controller              */ 
-Route::get('/books', 'BookController@index');
+Route::get('/store', 'BookController@index');
 Route::get('/book/{id}', 'BookController@show');
 Route::post('/book/create', 'BookController@store');
 Route::put('/book/update/{id}', 'BookController@update');

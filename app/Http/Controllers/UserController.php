@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Role;
+use App\Models\Region;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -47,7 +49,7 @@ class UserController extends Controller
             $request->all(),
             [
                 'nickname' => 'required|min:1|max:30',
-                'birth_date' => 'required',
+                'birthdate' => 'required',
                 'password' => 'required',
                 'email' => 'required|min:5|max:100',
                 'id_region' => 'required|exists:regions,id',
@@ -57,7 +59,7 @@ class UserController extends Controller
                 'nickname.required' => 'Debes ingresar un nombre de usuario',
                 'nickname.max' => 'El nombre de usuario no debe exeder los 30 caracteres',
                 'nickname.min' => 'El nombre de usuario debe tener almenos 1 caracter',
-                'birth_date.required' => 'Debe ingresar la fecha de nacimiento del usuario',
+                'birthdate.required' => 'Debe ingresar la fecha de nacimiento del usuario',
                 'name.required' => 'Debes ingresar un nombre de usuario',
                 'password.required' => 'Debes ingresar una contraseña',
                 'email.required' => 'Debes ingresar un correo electronico',
@@ -75,19 +77,20 @@ class UserController extends Controller
 
         $newUser = new User();
         $newUser->nickname = $request->nickname;
-        $newUser->birth_date = $request->birth_date;
+        $newUser->birthdate = $request->birthdate;
         $newUser->password = $request->password;
         $newUser->email = $request->email;
         $newUser->id_region = $request->id_region;
         $newUser->id_role = $request->id_role;
         $newUser->save();
         
+        /*
         return response() -> json([
             'respuesta' => 'Se ha agregado un nuevo usuario',
             'id' => $newUser->id,
         ], 201);
-        
-        /*return view('login',compact('newUser'));*/
+        */
+        return redirect('/');
     }
 
     /**
@@ -219,7 +222,21 @@ class UserController extends Controller
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
+    }
 
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+    }
+
+    public function vistaCrearUsuario()
+    {
+        $regions = Region::all();
+        $roles = Role::all();
+        return view('register',compact('regions', 'roles'));
     }
 }
 
