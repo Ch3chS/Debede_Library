@@ -19,6 +19,7 @@ class CreateRolesTable extends Migration
             $table->string('name',20)->unique();
 
             $table->timestamps();
+            $table->softDeletesTz($column = 'deleted_at', $precision = 0);
         });
     }
 

@@ -26,6 +26,7 @@ class CreateRegionBooksTable extends Migration
             $table->foreign('id_clasification')->references('id')->on('clasifications')->onDelete('cascade');
 
             $table->timestamps();
+            $table->softDeletesTz($column = 'deleted_at', $precision = 0);
         });
     }
 

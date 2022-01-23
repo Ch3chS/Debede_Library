@@ -22,6 +22,7 @@ class CreateRegionsTable extends Migration
             $table->foreign('id_country')->references('id')->on('countries')->onDelete('cascade');
 
             $table->timestamps();
+            $table->softDeletesTz($column = 'deleted_at', $precision = 0);
         });
     }
 

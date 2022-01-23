@@ -19,6 +19,7 @@ class CreateCountriesTable extends Migration
             $table->string('name',40)->unique();
 
             $table->timestamps();
+            $table->softDeletesTz($column = 'deleted_at', $precision = 0);
         });
     }
 

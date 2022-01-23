@@ -20,6 +20,7 @@ class CreateClasificationsTable extends Migration
             $table->integer('age');
 
             $table->timestamps();
+            $table->softDeletesTz($column = 'deleted_at', $precision = 0);
         });
     }
 

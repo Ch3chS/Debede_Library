@@ -22,6 +22,7 @@ class CreateBooksTable extends Migration
             $table->string('autor',100);
 
             $table->timestamps();
+            $table->softDeletesTz($column = 'deleted_at', $precision = 0);
         });
     }
 

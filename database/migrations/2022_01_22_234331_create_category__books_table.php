@@ -23,6 +23,7 @@ class CreateCategoryBooksTable extends Migration
             $table->foreign('id_book')->references('id')->on('books')->onDelete('cascade');
 
             $table->timestamps();
+            $table->softDeletesTz($column = 'deleted_at', $precision = 0);
         });
     }
 

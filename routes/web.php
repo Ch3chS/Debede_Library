@@ -21,4 +21,13 @@ Route::get('/', function () {
     return view('login');
 })->middleware('guest');
 
+
+
+
+/*         User Controller              */ 
+Route::get('/users', 'UserController@index');
+Route::get('/user/{id}', 'UserController@show');
+Route::post('/user/create', 'UserController@store');
+Route::put('/user/update/{id}', 'UserController@update');
+Route::delete('/user/delete/{id}','UserController@destroy');
 Route::post('login', 'UserController@login');

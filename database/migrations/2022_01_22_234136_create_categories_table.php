@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name',100);
 
             $table->timestamps();
+            $table->softDeletesTz($column = 'deleted_at', $precision = 0);
         });
     }
 
