@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Clasification;
+use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
 
-class ClasificationController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,13 @@ class ClasificationController extends Controller
      */
     public function index()
     {
-        $clasifications = Clasification::all();
-        if($clasifications->isEmpty()){
+        $categories = Category::all();
+        if($categories->isEmpty()){
             return response()->json([
-                'respuesta' => 'No se encuentran clasificaciones',
+                'respuesta' => 'No se encuentran categoria',
             ]);
         }
-        return response($clasifications, 200);
+        return response($categories, 200);
     }
 
     /**
@@ -45,28 +45,24 @@ class ClasificationController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|max:40'
-                'age' => 'required|numeric',
+                'name' => 'required|max:100'
             ],
             [
-                'name.required' => 'Debes ingresar el nombre de la clasificacion',
-                'name.max' => 'El nombre de la clasificacion no debe exeder los 40 caracteres',
-                'age.required' => 'Debe ingresar la edad minima',
-                'age.numeric' => 'La edad minima debe ser de tipo numerico',
+                'name.required' => 'Debes ingresar el nombre de la categoria',
+                'name.max' => 'El nombre de la categoria no debe exeder los 100 caracteres',
             ]
         );
         if($validator->fails()){
             return response($validator->errors(), 400);
         }
 
-        $newClasification = new Clasification();
-        $newClasification->name = $request->name;
-        $newClasification->age = $request->age;
-        $newClasification->save();
+        $newCategory = new Category();
+        $newCategory->name = $request->name;
+        $newCategory->save();
         
         return response() -> json([
-            'respuesta' => 'Se ha agregado una clasificacion',
-            'id' => $newClasification->id,
+            'respuesta' => 'Se ha agregado una categoria',
+            'id' => $newCategory->id,
         ], 201);
     }
 
@@ -78,13 +74,13 @@ class ClasificationController extends Controller
      */
     public function show($id)
     {
-        $clasification = Clasification::find($id);
-        if(empty($clasification)){
+        $category = Category::find($id);
+        if(empty($category)){
             return response()->json([
-                'respuesta' => 'no se encuentra la clasificacion'
+                'respuesta' => 'no se encuentra la categoria'
             ]);
         }
-        return response($clasification, 200);;
+        return response($category, 200);;
     }
 
 
@@ -111,35 +107,31 @@ class ClasificationController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|max:40'
-                'age' => 'required|numeric',
+                'name' => 'required|max:100'
             ],
             [
-                'name.required' => 'Debes ingresar el nombre de la clasificacion',
-                'name.max' => 'El nombre de la clasificacion no debe exeder los 40 caracteres',
-                'age.required' => 'Debe ingresar la edad minima',
-                'age.numeric' => 'La edad minima debe ser de tipo numerico',
+                'name.required' => 'Debes ingresar el nombre de la categoria',
+                'name.max' => 'El nombre de la categoria no debe exeder los 100 caracteres',
             ]
         );
         if($validator->fails()){
             return response($validator->errors(), 400);
         }
 
-        $clasification = Clasification::find($id);
+        $category = Category::find($id);
 
-        if(empty($clasification)){
+        if(empty($category)){
             return response()->json([
-                'respuesta' => 'La clasificacion no se encuentra'
+                'respuesta' => 'La categoria no se encuentra'
             ]);
         }
 
-        $clasification->name = $request->name;
-        $clasification->age = $request->age;
-        $clasification->save();
+        $category->name = $request->name;
+        $category->save();
         
         return response() -> json([
-            'respuesta' => 'Se ha actualizado la clasificacion',
-            'id' => $region->id,
+            'respuesta' => 'Se ha actualizado la categoria',
+            'id' => $category->id,
         ], 201);
     }
 
@@ -151,19 +143,19 @@ class ClasificationController extends Controller
      */
     public function destroy($id)
     {
-        $clasification = Clasification::find($id);
+        $category = Category::find($id);
 
-        if(empty($clasification)){
+        if(empty($category)){
             return response()->json([
-                'respuesta' => 'La clasificacion no se encuentra'
+                'respuesta' => 'La categoria no se encuentra'
             ]);
         }
 
-        $clasification->delete();
+        $category->delete();
 
         return response() -> json([
-            'respuesta' => 'Se ha desactivado la clasificacion',
-            'id' => $clasification->id,
+            'respuesta' => 'Se ha desactivado la categoria',
+            'id' => $category->id,
         ], 200);
     }
 }

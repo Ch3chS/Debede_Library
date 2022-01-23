@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Clasification;
+use App\Models\Country;
 use Illuminate\Support\Facades\Validator;
 
-class ClasificationController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,13 @@ class ClasificationController extends Controller
      */
     public function index()
     {
-        $clasifications = Clasification::all();
-        if($clasifications->isEmpty()){
+        $roles = Role::all();
+        if($roles->isEmpty()){
             return response()->json([
-                'respuesta' => 'No se encuentran clasificaciones',
+                'respuesta' => 'No se encuentran roles',
             ]);
         }
-        return response($clasifications, 200);
+        return response($roles, 200);
     }
 
     /**
@@ -45,28 +45,24 @@ class ClasificationController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|max:40'
-                'age' => 'required|numeric',
+                'name' => 'required|max:20'
             ],
             [
-                'name.required' => 'Debes ingresar el nombre de la clasificacion',
-                'name.max' => 'El nombre de la clasificacion no debe exeder los 40 caracteres',
-                'age.required' => 'Debe ingresar la edad minima',
-                'age.numeric' => 'La edad minima debe ser de tipo numerico',
+                'name.required' => 'Debes ingresar el nombre del rol',
+                'name.max' => 'El nombre del rol no debe exeder los 20 caracteres',
             ]
         );
         if($validator->fails()){
             return response($validator->errors(), 400);
         }
 
-        $newClasification = new Clasification();
-        $newClasification->name = $request->name;
-        $newClasification->age = $request->age;
-        $newClasification->save();
+        $newRole = new Role();
+        $newRole->name = $request->name;
+        $newRole->save();
         
         return response() -> json([
-            'respuesta' => 'Se ha agregado una clasificacion',
-            'id' => $newClasification->id,
+            'respuesta' => 'Se ha agregado un rol',
+            'id' => $newRole->id,
         ], 201);
     }
 
@@ -78,15 +74,14 @@ class ClasificationController extends Controller
      */
     public function show($id)
     {
-        $clasification = Clasification::find($id);
-        if(empty($clasification)){
+        $role = Role::find($id);
+        if(empty($role)){
             return response()->json([
-                'respuesta' => 'no se encuentra la clasificacion'
+                'respuesta' => 'no se encuentra el rol'
             ]);
         }
-        return response($clasification, 200);;
+        return response($role, 200);;
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -111,35 +106,31 @@ class ClasificationController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'name' => 'required|max:40'
-                'age' => 'required|numeric',
+                'name' => 'required|max:20'
             ],
             [
-                'name.required' => 'Debes ingresar el nombre de la clasificacion',
-                'name.max' => 'El nombre de la clasificacion no debe exeder los 40 caracteres',
-                'age.required' => 'Debe ingresar la edad minima',
-                'age.numeric' => 'La edad minima debe ser de tipo numerico',
+                'name.required' => 'Debes ingresar el nombre del rol',
+                'name.max' => 'El nombre del rol no debe exeder los 20 caracteres',
             ]
         );
         if($validator->fails()){
             return response($validator->errors(), 400);
         }
 
-        $clasification = Clasification::find($id);
+        $role = Role::find($id);
 
-        if(empty($clasification)){
+        if(empty($role)){
             return response()->json([
-                'respuesta' => 'La clasificacion no se encuentra'
+                'respuesta' => 'El rol no se encuentra'
             ]);
         }
 
-        $clasification->name = $request->name;
-        $clasification->age = $request->age;
-        $clasification->save();
+        $role->name = $request->name;
+        $role->save();
         
         return response() -> json([
-            'respuesta' => 'Se ha actualizado la clasificacion',
-            'id' => $region->id,
+            'respuesta' => 'Se ha actualizado el rol',
+            'id' => $role->id,
         ], 201);
     }
 
@@ -151,19 +142,19 @@ class ClasificationController extends Controller
      */
     public function destroy($id)
     {
-        $clasification = Clasification::find($id);
+        $role = Role::find($id);
 
-        if(empty($clasification)){
+        if(empty($role)){
             return response()->json([
-                'respuesta' => 'La clasificacion no se encuentra'
+                'respuesta' => 'El rol no se encuentra'
             ]);
         }
 
-        $clasification->delete();
+        $role->delete();
 
         return response() -> json([
-            'respuesta' => 'Se ha desactivado la clasificacion',
-            'id' => $clasification->id,
+            'respuesta' => 'Se ha desactivado el rol',
+            'id' => $role->id,
         ], 200);
     }
 }

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Clasification;
+use App\Models\Country;
 use Illuminate\Support\Facades\Validator;
 
-class ClasificationController extends Controller
+class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +15,13 @@ class ClasificationController extends Controller
      */
     public function index()
     {
-        $clasifications = Clasification::all();
-        if($clasifications->isEmpty()){
+        $countries = Country::all();
+        if($countries->isEmpty()){
             return response()->json([
-                'respuesta' => 'No se encuentran clasificaciones',
+                'respuesta' => 'No se encuentran paises',
             ]);
         }
-        return response($clasifications, 200);
+        return response($countries, 200);
     }
 
     /**
@@ -46,27 +46,23 @@ class ClasificationController extends Controller
             $request->all(),
             [
                 'name' => 'required|max:40'
-                'age' => 'required|numeric',
             ],
             [
-                'name.required' => 'Debes ingresar el nombre de la clasificacion',
-                'name.max' => 'El nombre de la clasificacion no debe exeder los 40 caracteres',
-                'age.required' => 'Debe ingresar la edad minima',
-                'age.numeric' => 'La edad minima debe ser de tipo numerico',
+                'name.required' => 'Debes ingresar el nombre del pais',
+                'name.max' => 'El nombre del pais no debe exeder los 40 caracteres',
             ]
         );
         if($validator->fails()){
             return response($validator->errors(), 400);
         }
 
-        $newClasification = new Clasification();
-        $newClasification->name = $request->name;
-        $newClasification->age = $request->age;
-        $newClasification->save();
+        $newCountry = new Country();
+        $newCountry->name = $request->name;
+        $newCountry->save();
         
         return response() -> json([
-            'respuesta' => 'Se ha agregado una clasificacion',
-            'id' => $newClasification->id,
+            'respuesta' => 'Se ha agregado un pais',
+            'id' => $newCountry->id,
         ], 201);
     }
 
@@ -78,15 +74,14 @@ class ClasificationController extends Controller
      */
     public function show($id)
     {
-        $clasification = Clasification::find($id);
-        if(empty($clasification)){
+        $country = Country::find($id);
+        if(empty($country)){
             return response()->json([
-                'respuesta' => 'no se encuentra la clasificacion'
+                'respuesta' => 'no se encuentra el pais'
             ]);
         }
-        return response($clasification, 200);;
+        return response($country, 200);;
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -112,34 +107,30 @@ class ClasificationController extends Controller
             $request->all(),
             [
                 'name' => 'required|max:40'
-                'age' => 'required|numeric',
             ],
             [
-                'name.required' => 'Debes ingresar el nombre de la clasificacion',
-                'name.max' => 'El nombre de la clasificacion no debe exeder los 40 caracteres',
-                'age.required' => 'Debe ingresar la edad minima',
-                'age.numeric' => 'La edad minima debe ser de tipo numerico',
+                'name.required' => 'Debes ingresar el nombre del pais',
+                'name.max' => 'El nombre del pais no debe exeder los 40 caracteres',
             ]
         );
         if($validator->fails()){
             return response($validator->errors(), 400);
         }
 
-        $clasification = Clasification::find($id);
+        $country = Country::find($id);
 
-        if(empty($clasification)){
+        if(empty($country)){
             return response()->json([
-                'respuesta' => 'La clasificacion no se encuentra'
+                'respuesta' => 'El pais no se encuentra'
             ]);
         }
 
-        $clasification->name = $request->name;
-        $clasification->age = $request->age;
-        $clasification->save();
+        $country->name = $request->name;
+        $country->save();
         
         return response() -> json([
-            'respuesta' => 'Se ha actualizado la clasificacion',
-            'id' => $region->id,
+            'respuesta' => 'Se ha actualizado el pais',
+            'id' => $country->id,
         ], 201);
     }
 
@@ -151,19 +142,19 @@ class ClasificationController extends Controller
      */
     public function destroy($id)
     {
-        $clasification = Clasification::find($id);
+        $country = Country::find($id);
 
-        if(empty($clasification)){
+        if(empty($country)){
             return response()->json([
-                'respuesta' => 'La clasificacion no se encuentra'
+                'respuesta' => 'El pais no se encuentra'
             ]);
         }
 
-        $clasification->delete();
+        $country->delete();
 
         return response() -> json([
-            'respuesta' => 'Se ha desactivado la clasificacion',
-            'id' => $clasification->id,
+            'respuesta' => 'Se ha desactivado el pais',
+            'id' => $country->id,
         ], 200);
     }
 }

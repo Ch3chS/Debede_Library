@@ -73,3 +73,24 @@ Route::get('/clasification/{id}', 'ClasificationController@show');
 Route::post('/clasification/create', 'ClasificationController@store');
 Route::put('/clasification/update/{id}', 'ClasificationController@update');
 Route::delete('/clasification/delete/{id}','ClasificationController@destroy');
+
+/*         Category Controller              */ 
+Route::get('/categories', 'CategoryController@index');
+Route::get('/category/{id}', 'CategoryController@show');
+Route::post('/category/create', 'CategoryController@store');
+Route::put('/category/update/{id}', 'CategoryController@update');
+Route::delete('/category/delete/{id}','CategoryController@destroy');
+
+/*         Country Controller              */ 
+Route::get('/countries', 'CountryController@index');
+Route::get('/country/{id}', 'CountryController@show');
+Route::post('/country/create', 'CountryController@store');
+Route::put('/country/update/{id}', 'CountryController@update');
+Route::delete('/country/delete/{id}','CountryController@destroy');
+
+/*         Role Controller              */ 
+Route::get('/roles', 'RoleController@index');
+Route::get('/role/{id}', 'RoleController@show');
+Route::post('/role/create', 'RoleController@store');
+Route::put('/role/update/{id}', 'RoleController@update');
+Route::delete('/role/delete/{id}','RoleController@destroy');
