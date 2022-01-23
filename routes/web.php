@@ -38,3 +38,24 @@ Route::get('/book/{id}', 'BookController@show');
 Route::post('/book/create', 'BookController@store');
 Route::put('/book/update/{id}', 'BookController@update');
 Route::delete('/book/delete/{id}','BookController@destroy');
+
+/*         Region_Book Controller              */ 
+Route::get('/region_books', 'Region_BookController@index');
+Route::get('/region_book/{id}', 'Region_BookController@show');
+Route::post('/region_book/create', 'Region_BookController@store');
+Route::put('/region_book/update/{id}', 'Region_BookController@update');
+Route::delete('/region_book/delete/{id}','Region_BookController@destroy');
+
+/*         User_Book Controller              */ 
+Route::get('/user_books', 'User_BookController@index');
+Route::get('/user_book/{id}', 'User_BookController@show');
+Route::post('/user_book/create', 'User_BookController@store');
+Route::put('/user_book/update/{id}', 'User_BookController@update');
+Route::delete('/user_book/delete/{id}','User_BookController@destroy');
+
+/*         Category_Book Controller              */ 
+Route::get('/category_books', 'Category_BookController@index');
+Route::get('/category_book/{id}', 'Category_BookController@show');
+Route::post('/category_book/create', 'Category_BookController@store');
+Route::put('/category_book/update/{id}', 'Category_BookController@update');
+Route::delete('/category_book/delete/{id}','Category_BookController@destroy');
