@@ -18,7 +18,7 @@ class CreateBooksTable extends Migration
 
             $table->string('title',100)->unique();
             $table->string('link');
-            $table->timestamp('publication_date', $precision = 0);
+            $table->date('publication_date');
             $table->string('autor',100);
 
             $table->timestamps();

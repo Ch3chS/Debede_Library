@@ -86,7 +86,7 @@ class UserController extends Controller
             'id' => $newUser->id,
         ], 201);
         
-        //return view('login',compact('newUser'));
+        /*return view('login',compact('newUser'));*/
     }
 
     /**
