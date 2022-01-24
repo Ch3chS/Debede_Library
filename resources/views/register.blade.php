@@ -40,7 +40,7 @@
                 </div>
                 <div class="col">
                     <h4 class="mb-3 text-center">Datos usuario</h4>
-                    
+
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="birthdate" name="birthdate"
                             placeholder="YYYY/MM/DD">
@@ -57,8 +57,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="floatingInput">Rol</label>
-                        <select class="form-select mb-4" aria-label="Seleccione su rol:" name="id_role"
-                            id="id_role">
+                        <select class="form-select mb-4" aria-label="Seleccione su rol:" name="id_role" id="id_role">
                             @foreach ($roles as $role)
                             <option value="{{$role->id}}">{{$role->name}}</option>
                             @endforeach

@@ -12,31 +12,44 @@
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
         </script>
         <link rel="shortcut icon" href="https://image.flaticon.com/icons/png/512/1181/1181446.png">
-        <title>Tienda</title>
+        <title>{{$book->title}}</title>
 </head>
 
 <body>
     @include('includes.navbar')
-
     <section class="mt-5">
-        <div class="container ">
-            <h4 class="mb-5">Biblioteca:</h4>
+        <div class="container py-5 h-100">
             <div class="row text-center mb-4">
-                @foreach ($books as $book)
-                <div class="col-4 d-flex justify-content-center my-3">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">{{$book->title}}</h5>
-                            <p class="card-text">{{$book->publication_date}}</p>
-                            <p class="card-text">{{$book->autor}}</p>
-                            <a href="/book/{{ $book->id }}" class="btn btn-primary">Visualizar Libro</a>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
+                <h1>{{$book->title}}</h1>
+            </div>
+        </div>
+
+        <div class="row text-center mb-4">
+            <div class="col">
+                <h6>Autor</h6>
+            </div>
+            <div class="col">
+                {{$book->autor}}
+            </div>
+        </div>
+        <div class="row text-center mb-4">
+            <div class="col">
+                <h6>Fecha de publicación</h6>
+            </div>
+            <div class="col">
+                {{$book->publication_date}}
+            </div>
+        </div>
+        <div class="row text-center mb-4">
+            <div class="col">
+                <h6>Link</h6>
+            </div>
+            <div class="col">
+                <a href="{{$book->link}}">{{$book->link}}</a>
             </div>
         </div>
     </section>
+
     @include('includes.footer')
 </body>
 

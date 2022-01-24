@@ -94,7 +94,7 @@ class BookController extends Controller
                 'respuesta' => 'El libro no se encuentra'
             ]);
         }
-        return response($book, 200);;
+        return view('book', compact('book'));
     }
 
     /**
