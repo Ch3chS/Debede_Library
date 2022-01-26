@@ -55,7 +55,7 @@ Route::put('/region_book/update/{id}', 'Region_BookController@update');
 Route::delete('/region_book/delete/{id}','Region_BookController@destroy');
 
 /*         User_Book Controller              */ 
-Route::get('/user_books', 'User_BookController@index');
+Route::get('/my_library', 'User_BookController@index');
 Route::get('/user_book/{id}', 'User_BookController@show');
 Route::post('/user_book/create', 'User_BookController@store');
 Route::put('/user_book/update/{id}', 'User_BookController@update');

@@ -218,9 +218,8 @@ class UserController extends Controller
 
             return redirect()->intended('home');
         }
-        return $credentials;
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Las credenciales no coinciden con lo esperado',
         ]);
     }
 

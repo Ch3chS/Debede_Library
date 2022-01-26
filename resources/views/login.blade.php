@@ -40,9 +40,19 @@
                                         <input type="password" class="form-control" id="floatingPassword"
                                             placeholder="Contraseña" id="password" name="password">
                                     </div>
-                                    </p>
 
-                                    <button class="btn btn-outline-light btn-lg px-5" type="submit">Ingresar</button>
+                                    <div class="form-outline form-white mb-4">
+                                        @if($errors->any)
+                                        <div class="alert alert_danger">
+                                            <ul>
+                                                @foreach($errors->all() as $error)
+                                                <li>{{$error}}</li>
+                                                @endforeach
+                                            </ul>
+                                            @endif
+                                        </div>
+                                        <button class="btn btn-outline-light btn-lg px-5"
+                                            type="submit">Ingresar</button>
                                 </form>
                             </div>
 

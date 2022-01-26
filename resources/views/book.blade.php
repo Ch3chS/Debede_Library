@@ -48,6 +48,20 @@
                 <a href="{{$book->link}}">{{$book->link}}</a>
             </div>
         </div>
+        <form action="{{action('User_BookController@store')}}" method="POST">
+            @csrf
+            <div>
+                <input type="hidden" name="id_book" id="id_book" value="{{$book->id}}">
+            </div>
+            <div>
+                <input type="hidden" name='id_user' id="id_book" value="{{auth()->user()->id}}">
+            </div>
+
+            <div class="row text-center mb-4">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Agregar a mi_biblioteca</button>
+                </div>
+        </form>
     </section>
 
     @include('includes.footer')

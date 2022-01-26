@@ -13,7 +13,7 @@
                         <a class="nav-link" aria-current="page" href="/store">Buscar_libros</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mi_biblioteca</a>
+                        <a class="nav-link" href="/my_library">Mi_biblioteca</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="/newbook">

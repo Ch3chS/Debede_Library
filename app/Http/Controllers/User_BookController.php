@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User_Book;
+use App\Models\Book;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 
 class User_BookController extends Controller
@@ -21,7 +23,8 @@ class User_BookController extends Controller
                 'respuesta' => 'No se encuentran relaciones libro-usuario',
             ]);
         }
-        return response($user_books, 200);
+
+        return view('my_library',compact('user_books'));
     }
 
     /**
@@ -58,16 +61,29 @@ class User_BookController extends Controller
         if($validator->fails()){
             return response($validator->errors(), 400);
         }
+        $book = Book::find($request->id_book);
+        $user = User::find($request->id_user);
+        $user_books = User_Book::all();
+        foreach($user_books as $user_book){
+            if($user_book->id_user==$user->id){
+                if($user_book->id_book==$book->id){
+                    return redirect('/my_library');
+                }
+            }
+        }
 
         $newUser_Book = new User_Book();
         $newUser_Book->id_user = $request->id_user;
         $newUser_Book->id_book = $request->id_book;
         $newUser_Book->save();
         
+        /*
         return response() -> json([
             'respuesta' => 'Se ha agregado una relacion libro-usuario',
             'id' => $newUser_Book->id,
         ], 201);
+        */
+        return redirect('/my_library');
     }
 
     /**
@@ -84,7 +100,7 @@ class User_BookController extends Controller
                 'respuesta' => 'la relacion libro-usuario no se encuentra'
             ]);
         }
-        return response($user_book, 200);;
+        return response($user_book, 200);
     }
 
     /**
